@@ -13,7 +13,7 @@
 #ifndef _HASH_TABLE_H
 # define _HASH_TABLE_H
 # define HT_CAPACITY 50000
-# include "../../lib/libft/includes/libft.h"
+# include "../../lib/libft/include/libft.h"
 
 typedef struct s_ht_item
 {

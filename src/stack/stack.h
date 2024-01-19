@@ -6,7 +6,7 @@
 /*   By: jcodina- <jcodina-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:17:16 by jcodina-          #+#    #+#             */
-/*   Updated: 2024/01/19 18:14:58 by jcodina-         ###   ########.fr       */
+/*   Updated: 2024/01/19 19:18:32 by jcodina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
-# include "../../lib/libft/includes/libft.h"
+# include "../../lib/libft/include/libft.h"
 
 # ifndef _E_BOOL
 #  define _E_BOOL
