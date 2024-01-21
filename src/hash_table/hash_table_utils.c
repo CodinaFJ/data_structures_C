@@ -23,7 +23,6 @@ unsigned long	hash_from_str(char *str)
 	{
 		hash += str[i];
 		hash *= 33;
-		hash = hash;
 		i++;
 	}
     return (hash % HT_CAPACITY);
