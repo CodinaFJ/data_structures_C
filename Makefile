@@ -5,6 +5,8 @@
 
 NAME = $(BIN_DIR)data_structures.a
 
+LIBFT_PATH = ./lib/libft
+LIBFT = $(LIBFT_PATH)/bin/libft.a
 CC	= cc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
@@ -76,9 +78,10 @@ END = \033[0m
 Rules
 ########################################################################################
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
+	@cp $(LIBFT) $(NAME)
 	@$(AR) $(NAME) $(OBJS)
 	@echo "\n$(G)[DATA STRUCTURES] Library compiled!$(DEF_COLOR)-> $@\n"
 
@@ -86,6 +89,11 @@ $(BIN_DIR)%.o:$(SRC_DIR)%.c
 	@mkdir -p $(BIN_DIRS)
 	@echo "$(Y)Compiling: $< $(DEF_COLOR)"
 	@$(CC) $(CFLAGS) -I$(HDR_DIR) -c $< -o $@
+
+libft: $(LIBFT) 
+
+$(LIBFT):
+	@make -C $(LIBFT_PATH)
 
 clean:
 	@$(RM) $(OBJS) $(BOBJS)
