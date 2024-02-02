@@ -3,84 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   btree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcodina- <jcodina-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jcodina- <fjavier.codina@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:37:49 by jcodina-          #+#    #+#             */
-/*   Updated: 2024/01/19 18:22:38 by jcodina-         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:15:18 by jcodina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "btree.h"
 
-t_btree	*btree_new(char *content)
+t_btree	*btree_new(void *content)
 {
 	t_btree	*btree;
 
 	btree = ft_calloc(1, sizeof(t_btree));
 	if (btree == NULL)
 		return (NULL);
-	ft_bzero(btree, sizeof(t_btree));
-	btree->content = ft_strdup(content);
+	btree->content = content;
 	btree->left = NULL;
 	btree->right = NULL;
 	return (btree);	
 }
 
-void	btree_free(t_btree **btree)
+void	btree_free(t_btree **btree, void (*del)(void *content))
 {
 	if (*btree == NULL)
 		return ;
 	if ((*btree)->content != NULL)
-		free((*btree)->content);
+		del((*btree)->content);
 	if ((*btree)->left != NULL)
-		btree_free(&(*btree)->left);
+		btree_free(&(*btree)->left, del);
 	if ((*btree)->right != NULL)
-		btree_free(&(*btree)->right);
+		btree_free(&(*btree)->right, del);
 	free(*btree);
 	*btree = NULL;
 }
 
-void	btree_print(t_btree *btree, char *level)
+void	btree_print(t_btree *btree, char *level, void (*print)(void *content))
 {
-	ft_printf("[%s] -> %s\n", level, btree->content);
+	ft_printf("[%s] -> ", level);
+	print(btree->content);
+	ft_printf("\n");
 	if (btree->left != NULL)
-		btree_print(btree->left, ft_strjoin(level, "l"));
+		btree_print(btree->left, ft_strjoin(level, "l"), print);
 	if (btree->right != NULL)
-		btree_print(btree->right, ft_strjoin(level, "r"));
+		btree_print(btree->right, ft_strjoin(level, "r"), print);
 }
 
-void	btree_clear(t_btree *btree)
+void	btree_clear(t_btree *btree, void (*del)(void *content))
 {
 	if (btree->content != NULL)
-		free(btree->content);
+		del(btree->content);
 	if (btree->left != NULL)
-		btree_clear(btree->left);
+		btree_clear(btree->left, del);
 	if (btree->right != NULL)
-		btree_clear(btree->right);
+		btree_clear(btree->right, del);
 }
 
-t_btree	*btree_dup(t_btree *btree)
+t_btree	*btree_dup(t_btree *btree, void *(*dup)(void *content), void (*del)(void *content))
 {
 	t_btree	*new_btree;
 	t_bool	error;
 
 	error = false;
-	new_btree = btree_new(btree->content);
+	new_btree = btree_new(dup(btree->content));
 	if (new_btree == NULL)
 		return (NULL);
 	if (btree->left != NULL)
 	{
-		new_btree->left =  btree_dup(btree->left);
+		new_btree->left =  btree_dup(btree->left, dup, del);
 		if (new_btree->left == NULL)
 			error = true;
 	}
 	if (btree->right != NULL)
 	{
-		new_btree->right =  btree_dup(btree->right);
+		new_btree->right =  btree_dup(btree->right, dup, del);
 		if (new_btree->right == NULL)
 			error = true;
 	}
 	if (error)
-		btree_free(&new_btree);
+		btree_free(&new_btree, del);
 	return (new_btree);
 }
