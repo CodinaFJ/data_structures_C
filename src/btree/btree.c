@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcodina- <fjavier.codina@gmail.com>        +#+  +:+       +#+        */
+/*   By: jcodina- <jcodina-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:37:49 by jcodina-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:00:32 by jcodina-         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:38:53 by jcodina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ void	btree_clear(t_btree *btree, void (*del)(void *content))
 	}
 	if (btree->left != NULL)
 	{
-		btree_clear(btree->left, del);
+		btree_free(btree->left, del);
 		btree->left = NULL;
 	}
 	if (btree->right != NULL)
 	{
-		btree_clear(btree->right, del);
+		btree_free(btree->right, del);
 		btree->right = NULL;
 	}
 }
