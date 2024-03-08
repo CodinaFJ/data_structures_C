@@ -8,7 +8,7 @@ NAME = $(BIN_DIR)data_structures.a
 LIBFT_PATH = ./lib/libft
 LIBFT = $(LIBFT_PATH)/bin/libft.a
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 AR = ar rcs
 RM = rm -rf
 
