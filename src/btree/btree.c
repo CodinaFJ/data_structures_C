@@ -67,12 +67,12 @@ void	btree_clear(t_btree *btree, void (*del)(void *content))
 	}
 	if (btree->left != NULL)
 	{
-		btree_free(btree->left, del);
+		btree_free(&(btree->left), del);
 		btree->left = NULL;
 	}
 	if (btree->right != NULL)
 	{
-		btree_free(btree->right, del);
+		btree_free(&(btree->right), del);
 		btree->right = NULL;
 	}
 }
