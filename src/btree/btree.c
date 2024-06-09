@@ -44,6 +44,8 @@ void	btree_free(t_btree **btree, void (*del)(void *content))
 
 void	btree_print(t_btree *btree, char *level, void (*print)(void *content))
 {
+    char    *str_aux;
+
 	if (btree == NULL)
 		return ;
 	ft_printf("[%s] -> ", level);
@@ -53,9 +55,17 @@ void	btree_print(t_btree *btree, char *level, void (*print)(void *content))
 		print(btree->content);
 	ft_printf("\n");
 	if (btree->left != NULL)
-		btree_print(btree->left, ft_strjoin(level, "l"), print);
+    {
+        str_aux = ft_strjoin(level, "l");
+		btree_print(btree->left, str_aux, print);
+        free(str_aux);
+    }
 	if (btree->right != NULL)
-		btree_print(btree->right, ft_strjoin(level, "r"), print);
+    {
+        str_aux = ft_strjoin(level, "r");
+		btree_print(btree->right, str_aux, print);
+        free(str_aux);
+    }
 }
 
 void	btree_clear(t_btree *btree, void (*del)(void *content))
