@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcodina- <jcodina-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jcodina- <fjavier.codina@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 21:37:49 by jcodina-          #+#    #+#             */
-/*   Updated: 2024/02/21 20:38:53 by jcodina-         ###   ########.fr       */
+/*   Updated: 2024/06/29 11:56:30 by jcodina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	btree_print(t_btree *btree, char *level, void (*print)(void *content))
 
 void	btree_clear(t_btree *btree, void (*del)(void *content))
 {
+	if (btree == NULL)
+		return ;
 	if (btree->content != NULL)
 	{
 		del(btree->content);
